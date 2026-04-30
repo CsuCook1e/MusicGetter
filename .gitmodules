@@ -1,0 +1,3 @@
+[submodule "musicdl"]
+	path = musicdl
+	url = https://github.com/CharlesPikachu/musicdl.git

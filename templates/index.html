@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MusicClimber</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Music clients">
+        <div class="brand">
+          <div>
+            <h1>MusicClimber</h1>
+            <p>musicdl Web 控制台</p>
+          </div>
+          <span class="pulse"></span>
+        </div>
+
+        <div class="toolbar compact">
+          <button id="selectDefaults" class="icon-button" type="button" title="默认源">
+            <i data-lucide="sparkles"></i>
+          </button>
+          <button id="selectAll" class="icon-button" type="button" title="全选">
+            <i data-lucide="list-checks"></i>
+          </button>
+          <button id="clearClients" class="icon-button" type="button" title="清空">
+            <i data-lucide="eraser"></i>
+          </button>
+        </div>
+
+        <label class="field-label" for="clientFilter">Client</label>
+        <div class="input-wrap">
+          <i data-lucide="filter"></i>
+          <input id="clientFilter" type="search" placeholder="筛选 client" autocomplete="off" />
+        </div>
+
+        <div id="clientGroups" class="client-groups"></div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <form id="searchForm" class="searchbar">
+            <div class="input-wrap main-input">
+              <i data-lucide="search"></i>
+              <input id="keyword" name="keyword" type="search" placeholder="歌曲、歌手、专辑" autocomplete="off" required />
+            </div>
+            <label class="limit-control">
+              <span>每源</span>
+              <input id="limitPerClient" type="number" min="1" max="30" value="5" />
+            </label>
+            <button id="searchButton" class="primary-button" type="submit">
+              <i data-lucide="search"></i>
+              <span>搜索</span>
+            </button>
+          </form>
+        </header>
+
+        <div class="notice">
+          仅用于学习、研究和个人合法内容管理；请确认你有权访问和下载对应音频。
+        </div>
+
+        <section class="summary-row">
+          <div class="metric">
+            <span>客户端</span>
+            <strong id="clientCount">0</strong>
+          </div>
+          <div class="metric">
+            <span>结果</span>
+            <strong id="resultCount">0</strong>
+          </div>
+          <div class="metric grow">
+            <span>状态</span>
+            <strong id="statusText">待搜索</strong>
+          </div>
+          <button id="downloadSelected" class="secondary-button" type="button" disabled>
+            <i data-lucide="download"></i>
+            <span>下载选中</span>
+          </button>
+        </section>
+
+        <section class="results-section">
+          <div class="table-head">
+            <label class="checkline">
+              <input id="toggleAllResults" type="checkbox" />
+              <span>全选结果</span>
+            </label>
+            <div id="countsText" class="counts-text"></div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="select-col"></th>
+                  <th>音乐</th>
+                  <th>Client</th>
+                  <th>格式</th>
+                  <th>大小</th>
+                  <th>时长</th>
+                  <th class="action-col"></th>
+                </tr>
+              </thead>
+              <tbody id="resultsBody">
+                <tr class="empty-row">
+                  <td colspan="7">输入关键词后开始搜索</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="jobPanel" class="job-panel" hidden>
+          <div class="job-title">
+            <i data-lucide="activity"></i>
+            <strong id="jobStatus">下载任务</strong>
+          </div>
+          <div id="jobMessage" class="job-message"></div>
+          <div id="fileList" class="file-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

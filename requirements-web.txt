@@ -1,0 +1,2 @@
+-e ./musicdl
+flask>=3.1,<4
