@@ -8,115 +8,240 @@
   </head>
   <body>
     <main class="app-shell">
-      <aside class="sidebar" aria-label="Music clients">
+      <aside class="sidebar" aria-label="Workflow tools">
         <div class="brand">
           <div>
             <h1>MusicClimber</h1>
-            <p>musicdl Web 控制台</p>
+            <p>音乐与短视频音频控制台</p>
           </div>
           <span class="pulse"></span>
         </div>
 
-        <div class="toolbar compact">
-          <button id="selectDefaults" class="icon-button" type="button" title="默认源">
-            <i data-lucide="sparkles"></i>
-          </button>
-          <button id="selectAll" class="icon-button" type="button" title="全选">
-            <i data-lucide="list-checks"></i>
-          </button>
-          <button id="clearClients" class="icon-button" type="button" title="清空">
-            <i data-lucide="eraser"></i>
-          </button>
-        </div>
+        <section id="musicSidebarTools" class="sidebar-tools">
+          <div class="toolbar compact">
+            <button id="selectDefaults" class="icon-button" type="button" title="默认源">
+              <i data-lucide="sparkles"></i>
+            </button>
+            <button id="selectAll" class="icon-button" type="button" title="全选">
+              <i data-lucide="list-checks"></i>
+            </button>
+            <button id="clearClients" class="icon-button" type="button" title="清空">
+              <i data-lucide="eraser"></i>
+            </button>
+          </div>
 
-        <label class="field-label" for="clientFilter">Client</label>
-        <div class="input-wrap">
-          <i data-lucide="filter"></i>
-          <input id="clientFilter" type="search" placeholder="筛选 client" autocomplete="off" />
-        </div>
+          <label class="field-label" for="clientFilter">Client</label>
+          <div class="input-wrap">
+            <i data-lucide="filter"></i>
+            <input id="clientFilter" type="search" placeholder="筛选 client" autocomplete="off" />
+          </div>
 
-        <div id="clientGroups" class="client-groups"></div>
+          <div id="clientGroups" class="client-groups"></div>
+        </section>
+
+        <section id="douyinSidebarTools" class="sidebar-tools sidebar-note" hidden>
+          <h2>抖音音频</h2>
+          <p>公开用户视频 · 音频提取</p>
+          <p>接口状态会显示在任务区域。</p>
+          <div class="sidebar-actions">
+            <button id="openDouyinLogin" class="cache-button" type="button">
+              <i data-lucide="log-in"></i>
+              <span>登录抖音</span>
+            </button>
+            <button id="refreshDouyinSession" class="cache-button icon-only" type="button" title="刷新登录状态">
+              <i data-lucide="refresh-cw"></i>
+            </button>
+          </div>
+          <div id="douyinSessionState" class="cache-stats">登录态未检测</div>
+          <button id="clearDouyinCache" class="cache-button" type="button">
+            <i data-lucide="trash-2"></i>
+            <span>清理缓存</span>
+          </button>
+          <div id="douyinCacheStats" class="cache-stats">缓存 0 个文件</div>
+        </section>
       </aside>
 
       <section class="workspace">
-        <header class="topbar">
-          <form id="searchForm" class="searchbar">
-            <div class="input-wrap main-input">
-              <i data-lucide="search"></i>
-              <input id="keyword" name="keyword" type="search" placeholder="歌曲、歌手、专辑" autocomplete="off" required />
-            </div>
-            <label class="limit-control">
-              <span>每源</span>
-              <input id="limitPerClient" type="number" min="1" max="30" value="5" />
-            </label>
-            <button id="searchButton" class="primary-button" type="submit">
-              <i data-lucide="search"></i>
-              <span>搜索</span>
+        <header class="workflow-header">
+          <nav class="workflow-tabs" aria-label="工作流切换">
+            <button class="workflow-tab active" type="button" data-workflow="music">
+              <i data-lucide="music"></i>
+              <span>音乐爬取</span>
             </button>
-          </form>
+            <button class="workflow-tab" type="button" data-workflow="douyin">
+              <i data-lucide="video"></i>
+              <span>抖音音频</span>
+            </button>
+          </nav>
         </header>
 
-        <div class="notice">
-          仅用于学习、研究和个人合法内容管理；请确认你有权访问和下载对应音频。
-        </div>
+        <section id="musicWorkflow" class="workflow-pane">
+          <header class="topbar">
+            <form id="searchForm" class="searchbar">
+              <div class="input-wrap main-input">
+                <i data-lucide="search"></i>
+                <input id="keyword" name="keyword" type="search" placeholder="歌曲、歌手、专辑" autocomplete="off" required />
+              </div>
+              <label class="limit-control">
+                <span>每源</span>
+                <input id="limitPerClient" type="number" min="1" max="30" value="5" />
+              </label>
+              <button id="searchButton" class="primary-button" type="submit">
+                <i data-lucide="search"></i>
+                <span>搜索</span>
+              </button>
+            </form>
+          </header>
 
-        <section class="summary-row">
-          <div class="metric">
-            <span>客户端</span>
-            <strong id="clientCount">0</strong>
+          <div class="notice">
+            仅用于学习、研究和个人合法内容管理；请确认你有权访问和下载对应音频。
           </div>
-          <div class="metric">
-            <span>结果</span>
-            <strong id="resultCount">0</strong>
-          </div>
-          <div class="metric grow">
-            <span>状态</span>
-            <strong id="statusText">待搜索</strong>
-          </div>
-          <button id="downloadSelected" class="secondary-button" type="button" disabled>
-            <i data-lucide="download"></i>
-            <span>下载选中</span>
-          </button>
+
+          <section class="summary-row">
+            <div class="metric">
+              <span>客户端</span>
+              <strong id="clientCount">0</strong>
+            </div>
+            <div class="metric">
+              <span>结果</span>
+              <strong id="resultCount">0</strong>
+            </div>
+            <div class="metric grow">
+              <span>状态</span>
+              <strong id="statusText">待搜索</strong>
+            </div>
+            <button id="downloadSelected" class="secondary-button" type="button" disabled>
+              <i data-lucide="download"></i>
+              <span>下载选中</span>
+            </button>
+          </section>
+
+          <section class="results-section">
+            <div class="table-head">
+              <label class="checkline">
+                <input id="toggleAllResults" type="checkbox" />
+                <span>全选结果</span>
+              </label>
+              <div id="countsText" class="counts-text"></div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="select-col"></th>
+                    <th>音乐</th>
+                    <th>Client</th>
+                    <th>格式</th>
+                    <th>大小</th>
+                    <th>时长</th>
+                    <th class="action-col"></th>
+                  </tr>
+                </thead>
+                <tbody id="resultsBody">
+                  <tr class="empty-row">
+                    <td colspan="7">输入关键词后开始搜索</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="jobPanel" class="job-panel" hidden>
+            <div class="job-title">
+              <i data-lucide="activity"></i>
+              <strong id="jobStatus">下载任务</strong>
+            </div>
+            <div id="jobMessage" class="job-message"></div>
+            <div id="fileList" class="file-list"></div>
+          </section>
         </section>
 
-        <section class="results-section">
-          <div class="table-head">
-            <label class="checkline">
-              <input id="toggleAllResults" type="checkbox" />
-              <span>全选结果</span>
+        <section id="douyinWorkflow" class="workflow-pane" hidden>
+          <form id="douyinUserForm" class="searchbar">
+            <div class="input-wrap main-input">
+              <i data-lucide="search"></i>
+              <input id="douyinKeyword" type="search" placeholder="抖音用户名、抖音号、主页链接或分享链接" autocomplete="off" />
+            </div>
+            <label class="limit-control">
+              <span>候选</span>
+              <input id="douyinUserLimit" type="number" min="1" max="30" value="10" />
             </label>
-            <div id="countsText" class="counts-text"></div>
+            <button id="douyinUserButton" class="primary-button" type="submit">
+              <i data-lucide="users"></i>
+              <span>找用户</span>
+            </button>
+          </form>
+
+          <div class="notice">
+            仅处理公开可访问内容；下载前请确认你有权保存对应视频或音频。
           </div>
 
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th class="select-col"></th>
-                  <th>音乐</th>
-                  <th>Client</th>
-                  <th>格式</th>
-                  <th>大小</th>
-                  <th>时长</th>
-                  <th class="action-col"></th>
-                </tr>
-              </thead>
-              <tbody id="resultsBody">
-                <tr class="empty-row">
-                  <td colspan="7">输入关键词后开始搜索</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
+          <section class="summary-row">
+            <div class="metric">
+              <span>候选用户</span>
+              <strong id="douyinUserCount">0</strong>
+            </div>
+            <div class="metric">
+              <span>视频</span>
+              <strong id="douyinVideoCount">0</strong>
+            </div>
+            <div class="metric grow">
+              <span>状态</span>
+              <strong id="douyinStatusText">待搜索</strong>
+            </div>
+            <button id="douyinDownloadSelected" class="secondary-button" type="button" disabled>
+              <i data-lucide="download"></i>
+              <span>下载音频</span>
+            </button>
+          </section>
 
-        <section id="jobPanel" class="job-panel" hidden>
-          <div class="job-title">
-            <i data-lucide="activity"></i>
-            <strong id="jobStatus">下载任务</strong>
-          </div>
-          <div id="jobMessage" class="job-message"></div>
-          <div id="fileList" class="file-list"></div>
+          <section class="split-grid">
+            <section class="results-section">
+              <div class="table-head">
+                <strong>用户候选</strong>
+                <div id="douyinNotes" class="counts-text"></div>
+              </div>
+              <div id="douyinUsers" class="user-list empty-panel">输入用户名后开始搜索</div>
+            </section>
+
+            <section class="results-section">
+              <div class="table-head">
+                <label class="checkline">
+                  <input id="douyinToggleAllVideos" type="checkbox" />
+                  <span>全选视频</span>
+                </label>
+                <div id="douyinVideoMeta" class="counts-text"></div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="select-col"></th>
+                      <th>视频</th>
+                      <th>发布时间</th>
+                      <th>音乐</th>
+                      <th class="action-col"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="douyinVideosBody">
+                    <tr class="empty-row">
+                      <td colspan="5">选择用户后获取视频</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <section id="douyinJobPanel" class="job-panel" hidden>
+            <div class="job-title">
+              <i data-lucide="activity"></i>
+              <strong id="douyinJobStatus">音频任务</strong>
+            </div>
+            <div id="douyinJobMessage" class="job-message"></div>
+            <div id="douyinFileList" class="file-list"></div>
+          </section>
         </section>
       </section>
     </main>

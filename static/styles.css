@@ -103,6 +103,77 @@ input {
   justify-content: flex-start;
 }
 
+.sidebar-tools {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.sidebar-note {
+  flex: 0;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #d9e6eb;
+}
+
+.sidebar-note h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.sidebar-note p {
+  margin: 0 0 10px;
+  color: #9fb3be;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.sidebar-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38px;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cache-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #f7fbfb;
+  background: rgba(185, 67, 67, 0.18);
+  cursor: pointer;
+}
+
+.cache-button.icon-only {
+  min-width: 38px;
+  padding: 0;
+}
+
+.cache-button:hover {
+  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(185, 67, 67, 0.28);
+}
+
+.cache-stats {
+  color: #9fb3be;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.cache-stats.ok {
+  color: #7ed8a2;
+}
+
 .icon-button,
 .primary-button,
 .secondary-button,
@@ -218,6 +289,48 @@ input {
   min-height: 0;
   padding: 22px;
   overflow: auto;
+}
+
+.workflow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.workflow-tabs {
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.workflow-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.workflow-tab.active {
+  color: #fff;
+  background: var(--accent);
+}
+
+.workflow-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
 }
 
 .topbar {
@@ -352,6 +465,60 @@ input {
   overflow: hidden;
 }
 
+.split-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.split-grid .results-section {
+  min-height: 460px;
+}
+
+.user-list {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  overflow: auto;
+}
+
+.user-card {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 68px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.user-card:hover,
+.user-card.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, #d9ebe3, #d9e4ee);
+  object-fit: cover;
+}
+
+.empty-panel {
+  min-height: 180px;
+  place-items: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .table-head {
   display: flex;
   align-items: center;
@@ -424,6 +591,22 @@ td {
   grid-template-columns: 46px minmax(0, 1fr);
   gap: 10px;
   align-items: center;
+}
+
+.video-cell {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.video-cover {
+  width: 74px;
+  height: 98px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, #d9ebe3, #d9e4ee);
+  object-fit: cover;
 }
 
 .cover {
@@ -584,6 +767,10 @@ svg {
     grid-template-columns: 1fr;
   }
 
+  .split-grid {
+    grid-template-columns: 1fr;
+  }
+
   .secondary-button,
   .primary-button {
     width: 100%;
@@ -595,10 +782,10 @@ svg {
     padding: 14px;
   }
 
-  th:nth-child(5),
-  td:nth-child(5),
-  th:nth-child(6),
-  td:nth-child(6) {
+  #musicWorkflow th:nth-child(5),
+  #musicWorkflow td:nth-child(5),
+  #musicWorkflow th:nth-child(6),
+  #musicWorkflow td:nth-child(6) {
     display: none;
   }
 

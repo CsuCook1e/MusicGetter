@@ -1,5 +1,6 @@
 .venv/
 downloads/
+cache/
 __pycache__/
 *.py[cod]
 *.pyo
@@ -9,7 +10,7 @@ __pycache__/
 .ruff_cache/
 .coverage
 htmlcov/
-ui-check.png
+ui-check*.png
 *.log
 .env
 .env.*
@@ -17,3 +18,5 @@ ui-check.png
 node_modules/
 dist/
 build/
+/DY-Data/
+/MediaCrawler/

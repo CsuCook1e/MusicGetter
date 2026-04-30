@@ -1,3 +1,6 @@
 [submodule "musicdl"]
 	path = musicdl
 	url = https://github.com/CharlesPikachu/musicdl.git
+[submodule "amemv-crawler"]
+	path = amemv-crawler
+	url = https://github.com/loadchange/amemv-crawler.git

@@ -1,2 +1,3 @@
 -e ./musicdl
 flask>=3.1,<4
+playwright>=1.51,<2
