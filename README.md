@@ -15,6 +15,22 @@ py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-web.txt
 ```
 
+## One-click Start
+
+On Windows, double-click:
+
+```text
+start.bat
+```
+
+Or run from PowerShell:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\start.ps1
+```
+
+The script initializes crawler submodules, creates `.venv`, installs Python dependencies, installs Playwright Chromium on the first run, opens the browser, and starts the local web server.
+
 ## Run
 
 ```powershell
